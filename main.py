@@ -4,7 +4,7 @@ import os
 from os import environ
 from secrets import token_urlsafe
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 from flask import Flask, redirect, render_template, request
 
@@ -19,17 +19,26 @@ WALL = {
 }
 
 
+APP_HOST = '127.0.0.1'
+APP_PORT = 8888
+VULNERABLE_LOGIN = "mike"
+VULNERABLE_PASSWORD = "mike2022"
+MY_SECRET = "TEST_SECRET"
+
 def run_app():
-    load_dotenv()
-    app.run(host=environ.get("APP_HOST"), port=environ.get("APP_PORT"))
+    #load_dotenv()
+    #app.run(host=environ.get("APP_HOST"), port=environ.get("APP_PORT"))
+    app.run(APP_HOST, APP_PORT)
 
 
 def get_password():
-    return environ.get("VULNERABLE_PASSWORD")
+    #return environ.get("VULNERABLE_PASSWORD")
+    return VULNERABLE_PASSWORD
 
 
 def get_login():
-    return environ.get("VULNERABLE_LOGIN")
+    # return environ.get("VULNERABLE_LOGIN")
+    return VULNERABLE_LOGIN
 
 
 @app.route("/wall")
@@ -77,7 +86,8 @@ def secret_page():
         if "csrf_token" not in sess:
             sess["csrf_token"] = str(uuid.uuid4())
 
-        return render_template("secret-page.html", my_secret=environ.get("MY_SECRET"), csrf_token=sess["csrf_token"])
+        #return render_template("secret-page.html", my_secret=environ.get("MY_SECRET"), csrf_token=sess["csrf_token"])
+        return render_template("secret-page.html", my_secret=MY_SECRET, csrf_token=sess["csrf_token"])
     else:
         return redirect("/login")
 
