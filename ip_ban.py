@@ -1,7 +1,7 @@
 from flask import request
 
 IP_LIST = {}
-IP_MAX_FAILS = 10
+IP_MAX_FAILS = 3
 
 
 # Вызывается когда кто-то присылает неверный логин и пароль
